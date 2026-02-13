@@ -1,0 +1,27 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+{% for h in hairdressers %}
+  <h2>{{ h.name }}</h2>
+
+  {% set hb = bookings[h.id] ?? null %}
+  {% if hb is empty %}
+    <p>Broneeringuid pole.</p>
+  {% else %}
+    {% for date, list in hb %}
+      <p><strong>{{ date }}</strong></p>
+      <ul>
+        {% for b in list %}
+          <li>{{ b.start }} – {{ b.end }}</li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+<p style="margin-top:18px;">
+  <a href="/booking">← tagasi</a>
+</p>
+{% endblock %}

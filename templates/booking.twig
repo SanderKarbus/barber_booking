@@ -1,0 +1,26 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="get" action="/availability">
+  <label>Juuksur</label>
+  <select name="hairdresser_id" required>
+    <option value="" disabled selected>-- vali --</option>
+    {% for h in hairdressers %}
+      <option value="{{ h.id }}">{{ h.name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Kuupäev</label>
+  <input type="date" name="date" value="{{ today }}" min="{{ today }}" required>
+
+  <div style="margin-top: 14px;">
+    <button class="btn" type="submit">Näita vabu aegu</button>
+  </div>
+</form>
+
+<p style="margin-top:16px;">
+  <a href="/admin">Admin</a>
+</p>
+{% endblock %}

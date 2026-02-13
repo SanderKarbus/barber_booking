@@ -1,0 +1,13 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<p>
+Juuksur: <strong>{{ hairdresser_name }}</strong><br>
+Kuupäev: <strong>{{ date }}</strong><br>
+Aeg: <strong>{{ start }} – {{ end }}</strong>
+</p>
+
+<p><a href="/booking">Tee uus broneering</a></p>
+{% endblock %}

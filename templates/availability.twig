@@ -1,0 +1,30 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<p class="muted">
+  Juuksur: <strong>{{ hairdresser_name }}</strong><br>
+  Kuupäev: <strong>{{ date }}</strong>
+</p>
+
+<div class="grid">
+  {% for s in slots %}
+    {% if s.occupied %}
+      <button class="btn" disabled>{{ s.start }} – {{ s.end }} (bronnitud)</button>
+    {% else %}
+      <form class="slotform" method="post" action="/book">
+        <input type="hidden" name="hairdresser_id" value="{{ hairdresser_id }}">
+        <input type="hidden" name="date" value="{{ date }}">
+        <input type="hidden" name="start" value="{{ s.start }}">
+        <input type="hidden" name="end" value="{{ s.end }}">
+        <button class="btn" type="submit">{{ s.start }} – {{ s.end }}</button>
+      </form>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<p style="margin-top:18px;">
+  <a href="/booking">← tagasi</a>
+</p>
+{% endblock %}
