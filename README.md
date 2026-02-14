@@ -1,8 +1,8 @@
 # Juuksuri broneerimissüsteem (MVP)
 https://barb-booking.onrender.com
-URL: /admin
-User: admin
-Pass: admin
+- URL: /admin
+- User: admin
+- Pass: admin
 
 
 ## Kirjeldus
