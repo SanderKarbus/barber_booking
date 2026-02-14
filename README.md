@@ -1,5 +1,9 @@
 # Juuksuri broneerimissüsteem (MVP)
 https://barb-booking.onrender.com
+URL: /admin
+User: admin
+Pass: admin
+
 
 ## Kirjeldus
 Tegemist on veebipõhise juuksuri broneerimissüsteemiga, mis võimaldab kasutajal
