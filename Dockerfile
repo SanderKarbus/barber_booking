@@ -1,21 +1,27 @@
-FROM php:8.3-cli
+FROM php:8.2-cli
 
+# System deps
+RUN apt-get update && apt-get install -y \
+    git unzip zip sqlite3 libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_sqlite
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Workdir
 WORKDIR /app
-COPY . /app
 
-# System deps for composer + sqlite
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-     libsqlite3-dev \
-     pkg-config \
-     git \
-     unzip \
-     zip \
-  && docker-php-ext-install pdo pdo_sqlite \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+# Copy composer files first (cache)
+COPY composer.json composer.lock ./
 
-EXPOSE 8080
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+# Install PHP deps
+RUN composer install --no-dev --optimize-autoloader
 
+# Copy rest of the app
+COPY . .
 
+# Expose port Render expects
+EXPOSE 10000
+
+# Start PHP built-in server
+CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
